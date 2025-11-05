@@ -51,7 +51,7 @@ public:
   /// This function writes a header for the standard response table.
   void writeHeader();
 
-  /// This function returns a string containing the nth shutdown time
+  /// This function returns a string containing the nth cooling time
   void getCoolTimesStrings(std::vector<std::string>&);
 
   /// This function writes a header for the table of totals. 
