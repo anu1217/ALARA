@@ -192,8 +192,7 @@ OutputFormat* OutputFormat::getOutFmts(istream& input)
 	  input >> token;
 	  next->cooltimeUnits = new char[strlen(token)+1];
 	  strcpy((next->cooltimeUnits)+1,token);	
-	  ///need changes here...
-	  next->cooltimeType = (tolower(token[0]) == 's'?COOLTIME_DEF:1);
+	  next->cooltimeType = (tolower(token[0]) == 's'?COOLTIME_S:1);
 
 	  break;
 	case OUTFMT_WDR:
