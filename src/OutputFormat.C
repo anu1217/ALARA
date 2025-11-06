@@ -421,15 +421,15 @@ void OutputFormat::write(Volume* volList, Mixture* mixList, Loading* loadList,
 	      {
 	      case OUTRES_INT:
 		volList->write(1<<outTypeNum,ptr->outTypes & OUTFMT_COMP,
-			       coolList,targetKza,ptr->normType);
+			       coolList,targetKza,ptr->normType, ptr);
 		break;
 	      case OUTRES_ZONE:
 		loadList->write(1<<outTypeNum,ptr->outTypes & OUTFMT_COMP,
-				coolList,targetKza,ptr->normType);
+				coolList,targetKza,ptr->normType, ptr);
 		break;
 	      case OUTRES_MIX:
 		mixList->write(1<<outTypeNum,ptr->outTypes & OUTFMT_COMP,
-			       coolList,targetKza,ptr->normType);
+			       coolList,targetKza,ptr->normType, ptr);
 		break;
 	      }
 
@@ -461,15 +461,15 @@ void OutputFormat::write(Volume* volList, Mixture* mixList, Loading* loadList,
 		{
 		case OUTRES_INT:
 		  volList->write(OUTFMT_WDR,ptr->outTypes & OUTFMT_COMP,
-				 coolList,targetKza,ptr->normType);
+				 coolList,targetKza,ptr->normType,ptr);
 		  break;
 		case OUTRES_ZONE:
 		  loadList->write(OUTFMT_WDR,ptr->outTypes & OUTFMT_COMP,
-				  coolList,targetKza,ptr->normType);
+				  coolList,targetKza,ptr->normType,ptr);
 		  break;
 		case OUTRES_MIX:
 		  mixList->write(OUTFMT_WDR,ptr->outTypes & OUTFMT_COMP,
-				 coolList,targetKza,ptr->normType);
+				 coolList,targetKza,ptr->normType,ptr);
 		  break;
 		}
 	      
