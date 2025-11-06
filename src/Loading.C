@@ -20,6 +20,8 @@
 #include "Result.h"
 #include "Output_def.h"
 
+#include "OutputFormat.h"
+
 /***************************
  ********* Service *********
  **************************/

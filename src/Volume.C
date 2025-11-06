@@ -18,6 +18,8 @@
 #include "Result.h"
 #include "Output_def.h"
 
+#include "OutputFormat.h"
+
 // Declare Static Members
 TempLibType Volume::specLib;
 TempLibType Volume::rangeLib;

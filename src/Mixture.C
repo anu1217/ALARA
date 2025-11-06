@@ -25,6 +25,8 @@
 #include "GammaSrc.h" 
 #include "VolFlux.h"
 
+#include "OutputFormat.h"
+
 /***************************
  ********* Service *********
  **************************/
