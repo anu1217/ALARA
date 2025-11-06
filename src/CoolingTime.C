@@ -12,6 +12,7 @@
 
 #include "CoolingTime.h"
 #include "Input_def.h"
+#include "OutputFormat.h"
 
 /***************************
  ********* Service *********
@@ -131,21 +132,33 @@ int CoolingTime::makeCoolingTimes(double *& coolingTimes)
 
 /** There is a column for the isotope, a column for the @shutdown
     result, and then a column for each after-shutdown cooling time. */
-void CoolingTime::writeHeader()
+void CoolingTime::writeHeader(const OutputFormat* outFmt)
 {
-  CoolingTime *ptr = this;
-  char textBuf[16];
+    CoolingTime *ptr = this;
+    char textBuf[32];
 
-  cout << "isotope\t shutdown   ";
+    cout << "isotope\t shutdown   ";
 
-  while (ptr->next != NULL)
+    while (ptr->next != NULL)
     {
-      ptr = ptr->next;
-      sprintf(textBuf,"%7g %c   ",ptr->coolingTime, ptr->units);
-      cout << textBuf;
+        ptr = ptr->next;
+
+        double timeVal = ptr->coolingTime;
+        char unitChar = ptr->units;
+
+        // Convert to seconds if requested
+        if (outFmt && outFmt->cooltimeType == COOLTIME_S)
+        {
+            timeVal = convertTime(ptr->coolingTime, ptr->units);
+            unitChar = 's';
+        }
+
+        sprintf(textBuf, "%7g %c   ", timeVal, unitChar);
+        cout << textBuf;
     }
-  cout << endl;
-  writeSeparator();
+
+    cout << endl;
+    writeSeparator();
 }
 
 void CoolingTime::getCoolTimesStrings(std::vector<std::string>& coolTimesList)
