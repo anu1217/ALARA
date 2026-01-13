@@ -87,7 +87,11 @@ public:
 
   /// Inline access to the name of this schedule.
   char* getName() { return schedName;};
-};
 
+  // --- New functions to allow access to PulseHistory for printing ---
+  int getNumHistories() { return itemListHead->getNumHistories(); };
+  PulseHistory* getHistory(int idx) { return itemListHead->getHistory(idx); };
+
+};
 
 #endif

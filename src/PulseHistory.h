@@ -57,7 +57,9 @@ public:
     { 
       delete [] td; 
       delete [] nPulse; 
-      delete [] D; };
+      delete [] D; 
+      delete [] name; 
+    };
 
   /// Overloaded assignment operator
   PulseHistory& operator=(const PulseHistory&);
@@ -69,6 +71,23 @@ public:
   /// This function performs the mathematics required to represent the
   /// pulsing history.
   Matrix doHistory(Matrix);
+
+  /****************************
+   ********* NEW **************
+   ***************************/
+protected:
+  /// Name of the pulse history
+  char* name;
+
+public:
+  /// Set the name of this history
+  void setName(const char* n);
+
+  /// Get the name of this history
+  const char* getName() const { return name; }
+
+  /// Print the pulse history (levels and pulses)
+  void write(int level = 0) const;
 
 };
 

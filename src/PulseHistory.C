@@ -7,8 +7,10 @@
  */
 
 #include "PulseHistory.h"
-
 #include "Chain.h"
+#include <iostream>
+
+using namespace std;
 
 /****************************
  ********* Service **********
@@ -22,27 +24,34 @@
 PulseHistory::PulseHistory(int nlvls, int *pulse, double *decay) :
   setCode(-1), nLevels(nlvls),  nPulse(pulse),  td(decay)
 {
-
   D = NULL;
+  name = NULL;  // initialize new member
+
   if (nLevels>0)
     {
       D = new Matrix[nLevels];
       memCheck(D,"PulseHistory::PulseHistory(...) constructor: D");
     }
-
-
 }
 
 /** Copies all members including an element-by-element copies of
     the two arrays. */
 PulseHistory::PulseHistory(const PulseHistory &p) : 
-  setCode(p.setCode),nLevels(p.nLevels)
+  setCode(p.setCode), nLevels(p.nLevels)
 {
   int lvlNum;
 
   nPulse = NULL;
   td = NULL;
   D = NULL;
+  name = NULL;
+
+  if (p.name != NULL)
+    {
+      name = new char[strlen(p.name)+1];
+      memCheck(name,"PulseHistory copy constructor: name");
+      strcpy(name,p.name);
+    }
 
   if (nLevels>0)
     {
@@ -53,16 +62,13 @@ PulseHistory::PulseHistory(const PulseHistory &p) :
       D = new Matrix[nLevels];
       memCheck(D,"PulseHistory::PulseHistory(...) copy constructor: D");
       
-      for (lvlNum=0;lvlNum<p.nLevels;lvlNum++)
+      for (lvlNum=0; lvlNum<p.nLevels; lvlNum++)
 	{
 	  nPulse[lvlNum] = p.nPulse[lvlNum];
 	  td[lvlNum] = p.td[lvlNum];
 	  D[lvlNum] = p.D[lvlNum];
 	}
-
     }
-
-
 }
 
 /** This action is valid (and invoked) whenever a schedule has a
@@ -75,12 +81,6 @@ PulseHistory::PulseHistory(const PulseHistory &p) :
 PulseHistory::PulseHistory(PulseHistory* hist1, double delay, 
 			   PulseHistory* hist2)
 {
-
-  /* this block takes care of various possible cases:
-   * 1: a schedule with a single item being a pulse has no hist2
-   * 2: all calcSchedules which are sub-schedule items will be collapsed
-   *    with the calcSchedule they point to, which never has a hist1 or delay
-   */
   int hist1Lvls=0, hist2Lvls=0, delayLvl=0;
   if (hist1 != NULL)
     hist1Lvls = hist1->nLevels;
@@ -97,7 +97,7 @@ PulseHistory::PulseHistory(PulseHistory* hist1, double delay,
 
   int lvlNum, lvl2Num;
 
-  for (lvlNum=0;lvlNum<hist1Lvls;lvlNum++)
+  for (lvlNum=0; lvlNum<hist1Lvls; lvlNum++)
     {
       nPulse[lvlNum] = hist1->nPulse[lvlNum];
       td[lvlNum] = hist1->td[lvlNum];
@@ -109,7 +109,7 @@ PulseHistory::PulseHistory(PulseHistory* hist1, double delay,
       td[lvlNum++] = delay;
     }
 
-  for (lvl2Num=0;lvl2Num<hist2Lvls;lvl2Num++)
+  for (lvl2Num=0; lvl2Num<hist2Lvls; lvl2Num++)
     {
       nPulse[lvlNum] = hist2->nPulse[lvl2Num];
       td[lvlNum++] = hist2->td[lvl2Num];
@@ -121,6 +121,14 @@ PulseHistory::PulseHistory(PulseHistory* hist1, double delay,
       D = new Matrix[nLevels];
       memCheck(D,"PulseHistory::PulseHistory(...) 'merge' constructor: D");
     }      
+
+  name = NULL;
+  if (hist1 != NULL && hist1->name != NULL)
+    {
+      name = new char[strlen(hist1->name)+1];
+      memCheck(name,"PulseHistory merge constructor: name");
+      strcpy(name,hist1->name);
+    }
     
   setCode = hist1->setCode;
 }
@@ -142,10 +150,19 @@ PulseHistory& PulseHistory::operator=(const PulseHistory &p)
   delete nPulse;
   delete td;
   delete [] D;
+  delete [] name;
 
   nPulse = NULL;
   td = NULL;
   D = NULL;
+  name = NULL;
+
+  if (p.name != NULL)
+    {
+      name = new char[strlen(p.name)+1];
+      memCheck(name,"PulseHistory operator= : name");
+      strcpy(name,p.name);
+    }
 
   if (nLevels>0)
     {
@@ -156,18 +173,17 @@ PulseHistory& PulseHistory::operator=(const PulseHistory &p)
       D = new Matrix[nLevels];
       memCheck(D,"PulseHistory::operator=(...): D");
       
-      for (lvlNum=0;lvlNum<p.nLevels;lvlNum++)
+      for (lvlNum=0; lvlNum<p.nLevels; lvlNum++)
 	{
 	  nPulse[lvlNum] = p.nPulse[lvlNum];
 	  td[lvlNum] = p.td[lvlNum];
 	  D[lvlNum] = p.D[lvlNum];
 	}
-
     }
 
   return *this;
-
 }
+
 /****************************
  ********* Solution *********
  ***************************/
@@ -179,7 +195,7 @@ void PulseHistory::setDecay(Chain* chain)
 
   if (setCode != chainCode)
     {
-      for (levelNum=0;levelNum<nLevels;levelNum++)
+      for (levelNum=0; levelNum<nLevels; levelNum++)
 	chain->setDecay(D[levelNum],td[levelNum]);
       
       setCode = chainCode;
@@ -195,7 +211,7 @@ Matrix PulseHistory::doHistory(Matrix opT)
   int levelNum;
   Matrix workT;
 
-  for (levelNum=0;levelNum<nLevels;levelNum++)
+  for (levelNum=0; levelNum<nLevels; levelNum++)
     {
       workT = opT * D[levelNum];
       workT = workT ^ (nPulse[levelNum]-1);
@@ -203,6 +219,34 @@ Matrix PulseHistory::doHistory(Matrix opT)
     }
 
   return opT;
-
 }
 
+/****************************
+ ********* NEW **************
+ ***************************/
+
+/** Set the name of this pulse history */
+void PulseHistory::setName(const char* n)
+{
+  delete [] name;
+  if (n != NULL)
+    {
+      name = new char[strlen(n)+1];
+      memCheck(name,"PulseHistory::setName(): name");
+      strcpy(name,n);
+    }
+  else
+    name = NULL;
+}
+
+/** Print the pulse history */
+void PulseHistory::write(int level) const
+{
+  int i;
+  for (i=0; i<nLevels; i++)
+    {
+      for (int j=0; j<level; j++)
+	cout << "\t";
+      cout << "entry: " << nPulse[i] << " " << td[i] << " s" << endl;
+    }
+}

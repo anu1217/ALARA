@@ -18,7 +18,7 @@
 
 /***************************
  ********* Service *********
- **************************/
+ ***************************/
 
 /** When called with no arguments, the default constructor creates a
     blank list head.  Otherwise, it creates and fills the storage for
@@ -150,7 +150,7 @@ Schedule* Schedule::getSchedule(istream& input)
 
 /***************************
  ********* xCheck **********
- **************************/
+ ***************************/
 
 /** This function sets up the cross-check by looping through the
     schedules, and passing the 2 arguments (the head of the Flux list
@@ -208,6 +208,21 @@ void Schedule::write(int level, char *histName, double delay, char dUnits)
     }
 
   ptr->itemListHead->write(level+1);
+
+  // Added block: print the PulseHistory objects used in this schedule
+  for (int i=0; i<ptr->itemListHead->getNumHistories(); i++)
+    {
+      PulseHistory* ph = ptr->itemListHead->getHistory(i);
+      for (lvlNum=0;lvlNum<level+1;lvlNum++)
+	cout << "\t";
+      cout << "Pulse History '" << ph->getName() << "':" << endl;
+      for (int lvl=0; lvl<ph->getNumLevels(); lvl++)
+	{
+	  for (int t=0; t<level+2; t++)
+	    cout << "\t";
+	  cout << "entry: " << ph->getNPulse(lvl) << " " << ph->getDwell(lvl) << " s" << endl;
+	}
+    }
 
   if (level==0)
     verbose(0,"\n***End of schedule hierarchy.\n\n");
