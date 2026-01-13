@@ -5,6 +5,7 @@
 #define SCHEDULE_H
 
 #include "Input_def.h"
+#include "ScheduleItem.h"
 
 /** \brief This class is invoked as a linked list and describes the 
  *         various irradiation schedules used in the problem.  
