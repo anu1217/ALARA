@@ -31,9 +31,6 @@ PulseHistory::PulseHistory(const char* histName, int nlvls, int *pulse, double *
       memCheck(D,"PulseHistory::PulseHistory(...) constructor: D");
     }
 
-  cout << "Testing the number of levels:" << nlvls << pulse << decay << endl; //results in garbage
-  cout << "Testing the number of levels_2:" << nlvls << *pulse << *decay << endl;
-
 }
 
 /** Copies all members including an element-by-element copies of
