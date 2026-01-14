@@ -30,7 +30,8 @@ PulseHistory::PulseHistory(int nlvls, int *pulse, double *decay) :
       memCheck(D,"PulseHistory::PulseHistory(...) constructor: D");
     }
 
-  cout << "Testing the number of levels:" << nlvls << endl;
+  cout << "Testing the number of levels:" << nlvls << pulse << decay << endl;
+  cout << "Testing the number of levels_2:" << nlvls << *pulse << *decay << endl;
 
 }
 
