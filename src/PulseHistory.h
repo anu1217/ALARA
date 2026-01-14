@@ -72,6 +72,8 @@ public:
   /// pulsing history.
   Matrix doHistory(Matrix);
 
+  void printSummary() const;
+
 };
 
 #endif
