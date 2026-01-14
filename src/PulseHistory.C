@@ -19,7 +19,7 @@
     are set with the arguments.  Note that the pointers are copied,
     and not the arrays themselves.  In both cases, 'setCode' is
     initialized to -1. */
-PulseHistory::PulseHistory(int nlvls, int *pulse, double *decay) :
+PulseHistory::PulseHistory(const char* histName, int nlvls, int *pulse, double *decay) :
   setCode(-1), nLevels(nlvls),  nPulse(pulse),  td(decay)
 {
 
@@ -30,7 +30,7 @@ PulseHistory::PulseHistory(int nlvls, int *pulse, double *decay) :
       memCheck(D,"PulseHistory::PulseHistory(...) constructor: D");
     }
 
-  cout << "Testing the number of levels:" << nlvls << pulse << decay << endl;
+  cout << "Testing the number of levels:" << nlvls << pulse << decay << endl; //results in garbage
   cout << "Testing the number of levels_2:" << nlvls << *pulse << *decay << endl;
 
 }

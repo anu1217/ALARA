@@ -76,7 +76,7 @@ PulseLevel* PulseLevel::getPulseLevel(int inNumPulse,istream& input)
 /** This function should be called through the head of the PulseLevel
     list within a particular History object. A pointer to the new object
     is returned. */
-PulseHistory* PulseLevel::makeHistory()
+PulseHistory* PulseLevel::makeHistory(const char* histName)
 {
   PulseLevel* head = this;
   PulseLevel* ptr = head;
