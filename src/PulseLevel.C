@@ -109,6 +109,7 @@ PulseHistory* PulseLevel::makeHistory(const char* histName)
   PulseHistory* phPtr = new PulseHistory(histName,nLevels,nPulse,td);
   memCheck(phPtr,"PulseLevel::makeHistoryl(...): phPtr");
   
+  phPtr->printSummary();
 
   return phPtr;
 }

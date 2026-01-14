@@ -7,7 +7,8 @@
  */
 
 #include "PulseHistory.h"
-
+#include <iostream>
+using namespace std;
 #include "Chain.h"
 
 /****************************
@@ -208,3 +209,24 @@ Matrix PulseHistory::doHistory(Matrix opT)
 
 }
 
+void PulseHistory::printSummary() const
+{
+    cout << "Pulse History: '" << histName << "'" << endl;
+    cout << "  Number of levels: " << nLevels << endl;
+
+    cout << "  Pulses per level: [";
+    for (int i = 0; i < nLevels; i++)
+    {
+        cout << nPulse[i];
+        if (i < nLevels - 1) cout << ", ";
+    }
+    cout << "]" << endl;
+
+    cout << "  Decay per level: [";
+    for (int i = 0; i < nLevels; i++)
+    {
+        cout << td[i];
+        if (i < nLevels - 1) cout << ", ";
+    }
+    cout << "]" << endl;
+}
