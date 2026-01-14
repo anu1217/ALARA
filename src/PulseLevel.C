@@ -106,7 +106,7 @@ PulseHistory* PulseLevel::makeHistory(const char* histName)
 
   verbose(4,"Creating new PulseHistory with %d levels.",nLevels);
 
-  PulseHistory* phPtr = new PulseHistory(nLevels,nPulse,td);
+  PulseHistory* phPtr = new PulseHistory(histName,nLevels,nPulse,td);
   memCheck(phPtr,"PulseLevel::makeHistoryl(...): phPtr");
   
 
