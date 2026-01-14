@@ -41,6 +41,8 @@ protected:
   /// for this pulsing history, one per dwell time, i.e. level.
   Matrix *D;
 
+  char* ph_name; 
+
 public:
   /// Default constructor, when called with no arguments
   PulseHistory (int nlvls=0, int *pulse = NULL, double *decay=NULL );
