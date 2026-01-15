@@ -8,7 +8,6 @@
 
 #include "PulseHistory.h"
 #include <iostream>
-using namespace std;
 #include "Chain.h"
 
 /****************************
