@@ -19,9 +19,16 @@
     are set with the arguments.  Note that the pointers are copied,
     and not the arrays themselves.  In both cases, 'setCode' is
     initialized to -1. */
-PulseHistory::PulseHistory(const char* histName, int nlvls, int *pulse, double *decay) :
+PulseHistory::PulseHistory(const char* name, int nlvls, int *pulse, double *decay) :
   setCode(-1), nLevels(nlvls),  nPulse(pulse),  td(decay)
 {
+  histName = NULL;
+  if (name != NULL)
+    {
+      histName = new char[strlen(name) + 1];
+      memCheck(histName, "PulseHistory::PulseHistory: histName");
+      strcpy(histName, name);
+    }
 
   D = NULL;
   if (nLevels>0)
@@ -38,6 +45,15 @@ PulseHistory::PulseHistory(const PulseHistory &p) :
   setCode(p.setCode),nLevels(p.nLevels)
 {
   int lvlNum;
+
+  histName = NULL;
+  if (p.histName != NULL)
+    {
+    histName = new char[strlen(p.histName) + 1];
+    memCheck(histName, "PulseHistory copy ctor: histName");
+    strcpy(histName, p.histName);
+    }
+
 
   nPulse = NULL;
   td = NULL;
