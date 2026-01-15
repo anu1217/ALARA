@@ -223,7 +223,7 @@ Matrix PulseHistory::doHistory(Matrix opT)
 
 void PulseHistory::printSummary() const
 {
-    //cout << "Pulse History: '" << histName << "'" << endl;
+    cout << "Pulse History: '" << histName << "'" << endl;
     cout << "Pulse History: '" << "" << "'" << endl;
     cout << "  Number of levels: " << nLevels << endl;
 
