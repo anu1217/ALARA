@@ -71,7 +71,9 @@ Schedule::~Schedule()
 {
   delete[] schedName; 
   delete itemListHead; 
+  delete calcSched;
   delete next; 
+  next = NULL;
 }
 
 
@@ -200,8 +202,9 @@ void Schedule::write(int level, char *histName, double delay, char dUnits)
     {
       for (lvlNum=0;lvlNum<level;lvlNum++)
 	cout << "\t";
-      cout << "schedule " << ptr->schedName << " pulse_history " << histName 
-	   << " delay " << delay << " " << dUnits << " " << endl; 
+      cout << "Schedule '" << ptr->schedName << "' with " << delay 
+	   << " " << dUnits << " delay and pulsed with history '" 
+	   << histName << "':" << endl;
     }
 
   ptr->itemListHead->write(level+1);
