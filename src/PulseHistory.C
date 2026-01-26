@@ -109,8 +109,6 @@ PulseHistory::PulseHistory(PulseHistory* hist1, double delay,
 
   if (hist1 != NULL)
   setCode = hist1->setCode;
-  else if (hist2 != NULL)
-    setCode = hist2->setCode;
   else
     setCode = -1;
 
