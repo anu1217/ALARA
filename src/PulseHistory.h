@@ -58,8 +58,8 @@ public:
   /// class PulseHistory.
   ~PulseHistory ()
     { 
-      delete [] td; 
-      delete [] nPulse; 
+      delete td; 
+      delete nPulse; 
       delete [] D; };
 
   /// Overloaded assignment operator
