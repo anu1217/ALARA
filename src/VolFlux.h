@@ -121,9 +121,6 @@ public:
     { 
       delete[] nflux; 
       delete[] CPfluxStorage;
-      delete[] CPflux;
-      delete next;
-      next = NULL;
     };
 
   /// Overloaded assignment operator

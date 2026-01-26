@@ -234,7 +234,6 @@ void Flux::xRef(Volume *volList)
     }
 
   delete[] FluxMatrix; // FIXME: internal arrays not deleted?
-  delete[] MatrixStorage;
 
   verbose(3,"Assigned %d fluxes to each interval",count());
 
