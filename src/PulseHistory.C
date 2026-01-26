@@ -106,6 +106,14 @@ PulseHistory::PulseHistory(PulseHistory* hist1, double delay,
     delayLvl = 1;
 
   nLevels = hist1Lvls + hist2Lvls + delayLvl;
+
+  if (hist1 != NULL)
+  setCode = hist1->setCode;
+  else if (hist2 != NULL)
+    setCode = hist2->setCode;
+  else
+    setCode = -1;
+
   nPulse = new int[nLevels];
   memCheck(nPulse,"PulseHistory::PulseHistory(...) 'merge' constructor: nPulse");
   td = new double[nLevels];
