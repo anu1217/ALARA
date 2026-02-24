@@ -197,6 +197,7 @@ void calcSchedule::collapse()
       calcSchedule **tmp = subSched;
       subSched = subSched[0]->subSched;
       delete[] tmp;
+      delete subSched;
 
     }
 
