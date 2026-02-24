@@ -196,9 +196,7 @@ void calcSchedule::collapse()
       fluxCode = subSched[0]->fluxCode;
       calcSchedule **tmp = subSched;
       subSched = subSched[0]->subSched;
-      delete tmp[0];
       delete[] tmp;
-      delete subSched;
 
     }
 
