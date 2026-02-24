@@ -187,7 +187,7 @@ void calcSchedule::collapse()
   while (nItems == 1)
     {
       verbose(4,"Collapsing this schedule with sub-schedule with %d items.",
-	      subSched[0]->nItems);
+	      subSched[0]->nItems);  
       nItems = subSched[0]->nItems;
       history = new PulseHistory(subSched[0]->history,subSched[0]->delay,
 				 history);
@@ -196,6 +196,7 @@ void calcSchedule::collapse()
       fluxCode = subSched[0]->fluxCode;
       calcSchedule **tmp = subSched;
       subSched = subSched[0]->subSched;
+      delete tmp[0];
       delete[] tmp;
 
     }
