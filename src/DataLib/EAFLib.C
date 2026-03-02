@@ -162,8 +162,8 @@ void EAFLib::getTransInfo()
   /* parse number of groups from title card */
   nGroups = atoi(strstr(transTitle,"Gp")-3);
 
-  grpBnds = NULL;
-  grpWeights = NULL;
+  grpBnds    = new float[nGroups+1]();
+  grpWeights = new float[nGroups]();
   /* looking for last comment card */
   inTrans.getline(buffer,MAXLINELENGTH);
   while (buffer[0] != '#')
