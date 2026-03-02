@@ -164,8 +164,8 @@ void EAFLib::getTransInfo()
   strncpy(num, gp-3, 3);
   nGroups = atoi(num);
 
-  grpBnds    = new float[nGroups+1]();
-  grpWeights = new float[nGroups]();
+  grpBnds = NULL;
+  grpWeights = NULL;
   /* looking for last comment card */
   inTrans.getline(buffer,MAXLINELENGTH);
   while (buffer[0] != '#')
