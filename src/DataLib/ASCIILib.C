@@ -55,8 +55,8 @@ ASCIILib::ASCIILib(int setType) : DataLib(setType)
 
 ASCIILib::~ASCIILib()
 {
-  delete grpBnds;
-  delete grpWeights;
+  delete[] grpBnds;
+  delete[] grpWeights;
 
   delete binLib;
   delete gammaLib;
