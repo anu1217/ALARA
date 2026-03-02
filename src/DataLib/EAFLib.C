@@ -160,7 +160,9 @@ void EAFLib::getTransInfo()
   /* truncate to make room for number of parents */
   transTitle[76] = '\0';
   /* parse number of groups from title card */
-  nGroups = atoi(strstr(transTitle,"Gp")-3);
+  char num[4] = {0};
+  strncpy(num, gp-3, 3);
+  nGroups = atoi(num);
 
   grpBnds    = new float[nGroups+1]();
   grpWeights = new float[nGroups]();
