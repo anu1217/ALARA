@@ -194,6 +194,7 @@ OutputFormat* OutputFormat::getOutFmts(istream& input)
 	  
 	  if (input >> token)
 		{
+		input >> token	
 		if (tolower(token[0]) == 's')
 			{
 			next->cooltimeType = COOLTIME_S;
