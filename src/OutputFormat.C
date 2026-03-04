@@ -186,8 +186,8 @@ OutputFormat* OutputFormat::getOutFmts(istream& input)
 	    }
 	  
 	  delete[] next->cooltimeUnits;
-	  next->cooltimeUnits = new char[strlen(token)+1];
-	  strcpy(next->cooltimeUnits, "");
+	//   next->cooltimeUnits = new char[strlen(token)+1];
+	//   strcpy(next->cooltimeUnits, "");
 
 	  next->cooltimeType = COOLTIME_DEF;
 	  std::streampos pos = input.tellg();
@@ -198,7 +198,7 @@ OutputFormat* OutputFormat::getOutFmts(istream& input)
 			{
 			next->cooltimeType = COOLTIME_S;
 
-			delete[] next->cooltimeUnits;
+			//delete[] next->cooltimeUnits;
 			next->cooltimeUnits = new char[strlen(token)+1];
 			strcpy(next->cooltimeUnits, token);
 			}
