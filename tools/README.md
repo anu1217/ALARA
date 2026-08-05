@@ -95,7 +95,7 @@ Below is the example `head()` of an `ALARADFrame`:
 
 
 ||time|time_unit|nuclide|half_life|run_lbl|block|block_name|block_num|variable| var_unit|value|
-|-|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|-|-|
 | 0 | -1 | 's' | h-1 | -1 | fendl2 | 0 | int_1 | 1 | 0 | atoms/kg | 0.000000e+0
 | 1 | 0.000000e+00| 's'  | h-1 | -1 | fendl2 | 0 | int_1 | 1 | 0 | atoms/kg | 1.176100e+22
 | 2 | 3.153600e+02 | 's' | h-1 | -1 | fendl2 | 0 | int_1 | 1 | 0 | atoms/kg | 1.176100e+22
