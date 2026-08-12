@@ -182,7 +182,6 @@ int main(int argc, char *argv[])
 
   /* INPUT */
   verbose(-1, "The version of ALARA used to run this simulation was built with Git commit: %s", GIT_COMMIT_HASH);
-  ///verbose(-1, "The version of ALARA used to run this simulation was built with a Git commit made on: %s", GIT_COMMIT_DATE);
   verbose(0,"Starting problem input processing.");
   verbose(1,"Reading input.");
   problemInput.read();
