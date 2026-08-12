@@ -12,7 +12,6 @@ include_directories(${CMAKE_BINARY_DIR})
 
 # ALARA executable
 add_executable(alara ${SRC_FILES})
-install(TARGETS alara DESTINATION bin)
 
 # Make sure the Git hash is generated before compiling ALARA
 add_dependencies(alara update_git_hash)
