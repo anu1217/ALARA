@@ -155,7 +155,6 @@ def main():
 
     if to_combine:
         sch_tree = add_ph_to_sch_tree(sch_tree, pulse_dict)
-        print(sch_tree)
 
 
 if __name__ == "__main__":
