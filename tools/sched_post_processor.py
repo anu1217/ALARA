@@ -21,9 +21,9 @@ def read_out(output_path):
 
 def read_pulse_histories(lines):
     """
-    Creates a dictionary with the name of the pulse history as the key, and a dictionary containing the number of pulses
-    in all pulsing levels & the delay (in seconds) of all pulsing levels as the value. All pulse histories are stored
-    regardless of usage in any schedule item.
+    Creates a dictionary with the name of the pulse history as the key. The value is an iterable of tuples, where 
+    each tuple has the form (# pulses (int), delay time (float), delay time unit ('s')). All pulse histories are
+    stored regardless of usage in any schedule item.
     """
     pulse_dict = {}
     line_idx = 0
@@ -34,13 +34,13 @@ def read_pulse_histories(lines):
             delay_line = lines[line_idx + 3].strip()
 
             pulse_hist_name = line.split()[1].strip("':")
-            num_pulses = eval(num_pulse_line.split(":")[1])
+            nums_pulses = eval(num_pulse_line.split(":")[1])
             delays = eval(delay_line.split(":")[1])
 
-            pulse_dict[pulse_hist_name] = {
-                "num_pulses_all_levels": num_pulses,
-                "delay_seconds_all_levels": delays,
-            }
+            pulse_hist_list = []
+            for num_pulse, delay in zip(nums_pulses, delays):
+                pulse_hist_list.append(tuple([num_pulse, delay, 's']))
+            pulse_dict[pulse_hist_name] = pulse_hist_list
             line_idx += 4
         else:
             line_idx += 1
@@ -131,10 +131,12 @@ def add_ph_to_sch_tree(sch_tree, pulse_dict):
 def parse_arg():
     parser = argparse.ArgumentParser()
     parser.add_argument("-f",
+                        "--filepath",
                         required=True,
                         type=str,
                         help="path to file containing ALARA output")
     parser.add_argument("-c",
+                        "--combine_dicts",
                         default=False,
                         type=bool,
                         help="Add pulse history information into schedule dictionary")
@@ -144,8 +146,8 @@ def parse_arg():
 
 def main():
     outputs = parse_arg()
-    output_path = outputs.f
-    to_combine = outputs.c
+    output_path = outputs.filepath
+    to_combine = outputs.combine_dicts
     lines = read_out(output_path)
 
     pulse_dict = read_pulse_histories(lines)
