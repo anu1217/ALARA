@@ -19,7 +19,7 @@ def prep_arrays_for_measures(parent_nuc, child_nucs,
     where the rows correspond to the different samples or irradiation conditions, and the columns 
     are correspond to the different daughter nuclides
     '''
-    parent_idx = child_nucs.index(parent_nuc)
+    parent_idx = [child_nuc for child_nuc in child_nucs].index(parent_nuc)
     sample_response_arrays = {
         'predicted': np.asarray(predicted_sample_response_array),
         'true': np.asarray(true_sample_response_array)

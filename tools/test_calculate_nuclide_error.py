@@ -15,7 +15,7 @@ from calculate_nuclide_error import (
 @pytest.fixture
 def input_data():
     parent_nuc = "he:4"
-    child_nucs = ["he:3", "he:4", "li:5"]
+    child_nucs = np.array(["he:3", "he:4", "li:5"])
 
     predicted_sample_response_array = np.array([
         [2.0, 100.0, 0.0],
