@@ -17,7 +17,7 @@ def prep_arrays_for_measures(parent_nuc, child_nucs,
     are correspond to the different daughter nuclides
     :param true_sample_response_array: 2D numpy array or nested list of ground-truth activation responses,
     where the rows correspond to the different samples or irradiation conditions, and the columns 
-    are correspond to the different daughter nuclides
+    correspond to the different daughter nuclides
     '''
     parent_idx = list(child_nucs).index(parent_nuc)
     sample_response_arrays = {
